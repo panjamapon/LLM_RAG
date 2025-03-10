@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { pipeline } from '@xenova/transformers';
 import pgvector from 'pgvector';
-
+import z from 'zod';
+import zodToJsonSchema from 'zod-to-json-schema'
 dotenv.config();
 const { Pool } = pg;
 const app = express();
@@ -68,7 +69,7 @@ async function retrieveDocuments(query) {
 
     // ค้นหาใน PostgreSQL โดยใช้ Cosine Similarity
     const result = await pool.query(
-        `SELECT id, title, genres, 1 - (embedding <=> $1) AS similarity
+        `SELECT id, title, genres, 10 - (embedding <=> $1) AS similarity
              FROM documents
              ORDER BY similarity DESC
         `,
@@ -77,10 +78,16 @@ async function retrieveDocuments(query) {
     return result.rows;
 }
 
+const schema = z.object({
+    movieName: z.string().describe('Name of the movie cannot be empty'),
+    imageUrl: z.string().url().describe('image URL of Movies from imdb'),
+    genres: z.array(z.string()).min(1, "At least one genre is required").describe('Genres of the movie'),
+});
+
 // API: ค้นหาภาพยนตร์ที่คล้ายกัน
 app.get('/ollama/search_movies', async (req, res) => {
     try {
-        const question = req.query.query || "Summarize, recommend movie titles that are dramas?, it so popular";
+        let question = req.query.query || "can you recommend the greatest movies of all time?";
         const retrievedDocs = await retrieveDocuments(question);
         // Prepare context for Gemini
         const context = retrievedDocs.map(doc => `${doc.title} - ${doc.genres}`).join("\n");
@@ -95,8 +102,10 @@ app.get('/ollama/search_movies', async (req, res) => {
                     role: 'user', content: question
                 }
             ],
+            format: zodToJsonSchema(schema)
         })
-        res.status(200).send(response.message.content)
+        // ส่งค่ากลับไปยัง client
+        res.status(200).send(response?.message.content);
     } catch (error) {
         console.error('Search Error:', error);
         res.status(500).send({ error: 'Error searching movies' });
