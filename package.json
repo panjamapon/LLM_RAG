@@ -1,0 +1,25 @@
+{
+  "name": "LLM_RAG",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "hug_face": "node hugging.js",
+    "ollama": "node ollama.js",
+    "gemini": "node gemini.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@huggingface/transformers": "^3.4.0",
+    "@supabase/supabase-js": "^2.49.1",
+    "@xenova/transformers": "^2.17.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "langchain": "^0.3.19",
+    "ollama": "^0.5.14",
+    "openai": "^4.86.2",
+    "pg": "^8.13.3",
+    "pgvector": "^0.2.0"
+  }
+}
