@@ -1059,9 +1059,9 @@ langchain@^0.3.19:
     zod-to-json-schema "^3.22.3"
 
 "langsmith@>=0.2.8 <0.4.0":
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.3.12.tgz#5c0080dc53f14ed655f02065076f844afb261855"
-  integrity sha512-e4qWM27hxEr8GfO6dgXrc3W8La+wxkX1zEtMhxhqS/Th2ujTt5OH7x0uXfXFDqCv9WaC3nquo1Y2s4vpYmLLtg==
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.3.13.tgz#8a4013f394a7c22681aa4feca21aedeb860647c5"
+  integrity sha512-iI5MO5FP1EFxU1jyQvB2cM4qKqXXwnsd124MKWWhBuV2O/EjdwzsyKPBVlBPFjAQbgCGtzqdJWbv9xld60hb+Q==
   dependencies:
     "@types/uuid" "^10.0.0"
     chalk "^4.1.2"

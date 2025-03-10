@@ -60,7 +60,7 @@ app.post('/ingest_movies', async (req, res) => {
 });
 
 // API: ค้นหาภาพยนตร์ที่คล้ายกัน
-app.get('/search_movies', async (req, res) => {
+app.get('/hugging/search_movies', async (req, res) => {
     try {
         const { query } = req.query;
         if (!query) return res.status(400).send({ error: 'Missing query parameter' });

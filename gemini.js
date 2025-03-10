@@ -81,7 +81,7 @@ async function retrieveDocuments(query) {
 }
 
 // API: ค้นหาภาพยนตร์ที่คล้ายกัน
-app.get('/search_movies', async (req, res) => {
+app.get('/gemini/search_movies', async (req, res) => {
     try {
         const question = req.query.query || "Summarize, recommend movie titles that are dramas?, it so popular";
         const retrievedDocs = await retrieveDocuments(question);
